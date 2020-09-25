@@ -1,37 +1,38 @@
 package edu.temple.coloractivity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 public class MainActivity extends AppCompatActivity {
 
     Spinner spinner;
+    ConstraintLayout layout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setTitle("Color Activity");
 
-        String[] colourStr = new String[9];
+        String[] colourStr = new String[10];
 
         colourStr[0] = "Choose a color";
         colourStr[1] = "Red";
-        colourStr[2] = "Cyan";
-        colourStr[3] = "Red";
-        colourStr[4] = "Gray";
+        colourStr[2] = "Yellow";
+        colourStr[3] = "Cyan";
+        colourStr[4] = "Light Gray";
         colourStr[5] = "Magenta";
         colourStr[6] = "Silver";
-        colourStr[7] = "Teal";
+        colourStr[7] = "Blue";
         colourStr[8] = "Green";
+        colourStr[9] = "Dark Gray";
 
-        int[] colourInt = new int[9];
+        final int[] colourInt = new int[10];
 
         colourInt[0] = Color.WHITE;
         colourInt[1] = Color.RED;
@@ -42,21 +43,22 @@ public class MainActivity extends AppCompatActivity {
         colourInt[6] = Color.LTGRAY;
         colourInt[7] = Color.BLUE;
         colourInt[8] = Color.GREEN;
+        colourInt[9] = Color.DKGRAY;
 
         spinner = findViewById(R.id.spinner);
-
-        final SpinnerAdapter adapter = new SpinnerAdapter(this,colourStr, colourInt);
+        layout = findViewById(R.id.consLayout);
+        final ColorAdapter adapter = new ColorAdapter(this,colourStr, colourInt);
         spinner.setAdapter(adapter);
-
+        spinner.bringToFront();
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
+                layout.setBackgroundColor(colourInt[i]);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView){
-                adapterView.setBackgroundColor(Color.WHITE);
+
             }
         });
 
